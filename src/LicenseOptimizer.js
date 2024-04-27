@@ -3,50 +3,28 @@ const {
   countLines,
 } = require('@parcel/utils');
 const SourceMap = require('@parcel/source-map').default;
-const getLicense = require('./getLicense');
 
-function createLicenseHeader(package) {
-  let header = '';
-  header += ' * ' + package.name + ':\n * ';
-  header += package.license.replace(/\n/g,'\n * ');
-  header += '\n';
-  return header;
-}
 
-function createHeader(packages) {
-  let header = '';
-  header += '/**\n';
-  header += ' * @license\n';
-  header += ' *\n';
-  const keys = Object.keys(packages);
-  keys.sort();
-  keys.forEach(function (key) {
-      header += createLicenseHeader(packages[key]);
-  });
-  header += ' */\n';
-  return header;
-}
 
 module.exports = new Optimizer({
+    async loadConfig({config}) {
+      // we use toml since it has nicer syntax for multi-line strings than json
+      // and we dont want js since its overkill
+      let {contents, filePath} = await config.getConfig([
+        'userscript.toml' 
+      ]);
+      console.log(contents)
+      return contents.header;
+  },
+  
   async optimize({
     bundle,
     contents,
     map,
-    options
+    options,
+    config
   }) {
-    const packages = {};
-    bundle.traverse(node => {
-      if (node.type !== 'asset') {
-        return;
-      }
-      const asset = node.value;
-      const filePath = asset.filePath;
-      const licenseInfo = getLicense(filePath, options.projectRoot);
-      if(licenseInfo) {
-        packages[licenseInfo.package.name] = {...licenseInfo.package, license: licenseInfo.license}
-      }
-    });
-    const header = createHeader(packages);
+    const header = config
     const newMap = new SourceMap(options.projectRoot);
     if (options.sourceMaps) {
       const mapBuffer = map.toBuffer();
