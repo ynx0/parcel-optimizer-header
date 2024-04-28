@@ -1,5 +1,5 @@
 {
-  "name": "parcel-optimizer-userscript",
+  "name": "parcel-optimizer-header",
   "version": "0.0.1",
   "license": "MIT",
   "publishConfig": {
@@ -7,10 +7,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ynx0/parcel-optimizer-userscript.git"
+    "url": "git+https://github.com/ynx0/parcel-optimizer-header.git"
   },
-  "main": "src/UserscriptOptimizer.js",
-  "source": "src/UserscriptOptimizer.js",
+  "main": "src/HeaderOptimizer.js",
+  "source": "src/HeaderOptimizer.js",
   "engines": {
     "parcel": "^2.2.0"
   },
@@ -23,5 +23,5 @@
     "@parcel/source-map": "^2.1.1"
   },
   "description": "",
-  "homepage": "https://github.com/ynx0/parcel-optimizer-userscript#readme"
+  "homepage": "https://github.com/ynx0/parcel-optimizer-header#readme"
 }
