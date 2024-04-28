@@ -1,98 +1,64 @@
-# parcel-optimizer-add-license
+# parcel-optimizer-header
 
-This plugin add license on your bundles.
+This plugin lets you add prepend a static header to every bundle,
+as defined in a file called `header.toml` that goes in the root of your project. (Or really anywhere that `config.getConfig` will find it.)
+
+
+This can be useful for things like licenses or userscript headers,
+which normally get stripped out.
+
 
 ## How to use
-```sh
-npm install parcel-optimizer-add-license --save-dev
-```
+
+### Install
+
+Use a direct git URL in your npm deps because I haven't published it to npm. Or you could just ~~clone~~ vendor it and use a `file:` url. Or self-publish it.
+
+
+### Configure parcel
+
 
 `.parcelrc`
 ```json
 {
   "extends": "@parcel/config-default",
   "optimizers": {
-    "*.js": ["...", "parcel-optimizer-add-license"]
+    "*.js": ["...", "parcel-optimizer-header"]
   }
 }
 ```
 
-## Output
 
+## Example Output
+
+Given a `header.toml` that looks like
+
+```toml
+# example header file;
+# put this in your project directory
+header = '''
+// ==UserScript==
+// @name         New Userscript
+// @namespace    http://tampermonkey.net/
+// @version      2024-01-01
+// @description  try to take over the world!
+// @author       You
+// @match        https://example.com
+// @grant        none
+// ==/UserScript==
+'''
+```
+
+Every bundle will look something like:
 ```js
-/**
- * @license
- *
- * @babel/runtime:
- * MIT License
- * 
- * Copyright (c) 2014-present Sebastian McKenzie and other contributors
- * 
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- * 
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
- * @parcel/runtime-js:
- * MIT License
- * 
- * Copyright (c) 2017-present Devon Govett
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- * 
- * prop-types:
- * MIT License
- * 
- * Copyright (c) 2013-present, Facebook, Inc.
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- * 
- */
+// ==UserScript==
+// @name         New Userscript
+// @namespace    http://tampermonkey.net/
+// @version      2024-01-01
+// @description  try to take over the world!
+// @author       You
+// @match        https://example.com
+// @grant        none
+// ==/UserScript==
 !function(){...
 ```
