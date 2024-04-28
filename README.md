@@ -68,3 +68,8 @@ Every bundle will look something like:
 // ==/UserScript==
 !function(){...
 ```
+
+
+## Credits
+
+Thanks to @sogaani for making https://github.com/sogaani/parcel-optimizer-add-license which this is based off of.
