@@ -1,5 +1,11 @@
 # parcel-optimizer-header
 
+> [!WARNING]
+> This plugin has not been extensively tested and there we offer NO GUARANTEES.
+> 
+> 🙃
+
+
 This plugin lets you add prepend a static header to every bundle,
 as defined in a file called `header.toml` that goes in the root of your project. (Or really anywhere that `config.getConfig` will find it.)
 
