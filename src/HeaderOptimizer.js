@@ -24,7 +24,7 @@ module.exports = new Optimizer({
     if (options.sourceMaps) {
       const mapBuffer = map.toBuffer();
       const lineOffset = countLines(header) - 1;
-      newMap.addBufferMappings(mapBuffer, lineOffset);
+      newMap.addBuffer(mapBuffer, lineOffset);
     }
 
     return { contents: header + contents, map: newMap };
