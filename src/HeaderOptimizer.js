@@ -27,6 +27,6 @@ module.exports = new Optimizer({
       newMap.addBuffer(mapBuffer, lineOffset);
     }
 
-    return { contents: header + contents, map: newMap };
+    return { contents: header + contents, map: options.sourceMaps ? newMap : map };
   },
 });
